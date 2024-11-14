@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject OutcomeText;
     public GameObject CountDownText;
     public float remainingTime;
+    public string NextSceneName;
     private bool isGameActive;
 
     // Start is called before the first frame update
@@ -44,16 +46,14 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         if (win)
         {
-            OutcomeText.GetComponent<TextMeshProUGUI>().text = "GAME OVER - YOU WIN";
-            Debug.Log("GAME OVER - YOU WIN");
+            OutcomeText.GetComponent<TextMeshProUGUI>().text = "LEVEL COMPLETE - YOU WIN";
+            StartCoroutine(delayed_load(NextSceneName, 5));
         }
         else
         {
-            OutcomeText.GetComponent<TextMeshProUGUI>().text = "GAME OVER - YOU LOSE";
-            Debug.Log("GAME OVER - YOU LOSE");
+            OutcomeText.GetComponent<TextMeshProUGUI>().text = "OUT OF TIME - YOU LOSE";
+            StartCoroutine(delayed_load(SceneManager.GetActiveScene().name, 5));
         }
-        StartCoroutine(delayed_load(SceneManager.GetActiveScene().name, 5));
-
     }
 
     IEnumerator delayed_load(string sceneName, int seconds)

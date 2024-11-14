@@ -87,7 +87,7 @@ public class Spaceship : MonoBehaviour
             }
         }
         FireThusters();
-        addForces();
+        AddForces();
     }
 
     private void getPlayerFlightInput()
@@ -96,20 +96,20 @@ public class Spaceship : MonoBehaviour
         {
             // all stop
             Vector3 localVelocity = transform.InverseTransformDirection(rb.velocity);
-            thrustDirection = new Vector3(-localVelocity.x, -localVelocity.y, -localVelocity.z).normalized * 1;
+            thrustDirection = new Vector3(-localVelocity.x, -localVelocity.y, -localVelocity.z).normalized * 5;
             Vector3 localAngularVelocity = transform.InverseTransformDirection(rb.angularVelocity);
-            rotationDirection = new Vector3(-localAngularVelocity.x, -localAngularVelocity.y, -localAngularVelocity.z).normalized * 1;
+            rotationDirection = new Vector3(-localAngularVelocity.x, -localAngularVelocity.y, -localAngularVelocity.z).normalized * 10;
         }
 
         else
         {
             if (isMouseToCamera)
             {
-                rotationDirection = new Vector3(0, 0, Input.GetAxis("Roll") * 10);
+                rotationDirection = new Vector3(0, 0, Input.GetAxis("Roll") * 5);
             }
             else
             {
-                rotationDirection = new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), Input.GetAxis("Roll") * 10);
+                rotationDirection = new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), Input.GetAxis("Roll") * 5);
             }
             thrustDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Lift"), Input.GetAxis("Vertical"));
         }
@@ -151,7 +151,7 @@ public class Spaceship : MonoBehaviour
         
     }
 
-    private void addForces()
+    private void AddForces()
     {
         // add force for forward, backwards, left, right, up, and down
         rb.AddRelativeForce(thrustDirection.x*force_factor, thrustDirection.y*force_factor, thrustDirection.z*force_factor, ForceMode.Impulse);
